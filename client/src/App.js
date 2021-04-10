@@ -10,6 +10,11 @@ import Alerts from './layout/Alerts';
 import ContactState from './contexts/contact/ContactState';
 import AuthState from './contexts/auth/AuthState';
 import AlertState from './contexts/alert/AlertState';
+import setAuthToken from './utils/setAuthToken';
+
+if (localStorage.token) {
+  setAuthToken(localStorage.token);
+}
 
 function App() {
   return (
