@@ -55,7 +55,23 @@ const AuthState = ({ children }) => {
   };
 
   // Login User
+  const login = async (formValues) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    try {
+      const res = await axios.post('/api/auth', formValues, config);
+      dispatch({ type: LOGIN_SUCCESS, payload: res.data });
+      loadUser();
+    } catch (err) {
+      dispatch({ type: LOGIN_FAIL, payload: err.response.data.msg });
+    }
+  };
+
   // Logout
+  const logout = () => dispatch({ type: LOGOUT });
 
   // Clear Errors
   const clearErrors = () => dispatch({ type: CLEAR_ERRORS });
@@ -71,6 +87,8 @@ const AuthState = ({ children }) => {
         register,
         clearErrors,
         loadUser,
+        login,
+        logout,
       }}
     >
       {children}
